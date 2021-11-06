@@ -33,12 +33,12 @@ class TracedClientInterceptor(private val tracer: JaegerTracer) : ClientIntercep
             }
 
             override fun request(numMessages: Int) {
-                span.log("request: $numMessages")
+                span.log("request: \$numMessages")
                 super.request(numMessages)
             }
 
             override fun cancel(message: String?, cause: Throwable?) {
-                span.log("cancel: ${cause?.localizedMessage}")
+                span.log("cancel: \${cause?.localizedMessage}")
                 super.cancel(message, cause)
             }
 
