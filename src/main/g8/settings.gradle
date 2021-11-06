@@ -1,0 +1,5 @@
+rootProject.name = '$name$'
+
+include ':modules:common'
+include ':modules:client'
+include ':modules:server'

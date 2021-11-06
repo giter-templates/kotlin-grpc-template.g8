@@ -1,0 +1,49 @@
+apply plugin: "com.google.protobuf"
+
+dependencies {
+    api "io.prometheus:simpleclient:\${prometheusVersion}"
+    api "io.prometheus:simpleclient_hotspot:\${prometheusVersion}"
+    api "io.prometheus:simpleclient_httpserver:\${prometheusVersion}"
+    api "io.jaegertracing:jaeger-client:\${jaegerVersion}"
+
+    // protobuf
+    api "io.grpc:grpc-protobuf:\${grpcVersion}"
+    api "io.grpc:grpc-kotlin-stub:\${grpcKotlinVersion}"
+    api "com.google.protobuf:protobuf-java:\${protobufVersion}"
+    api "com.google.protobuf:protobuf-java-util:\${protobufVersion}"
+    api "io.grpc:grpc-netty-shaded:\${grpcVersion}"
+    api "io.grpc:grpc-stub:\${grpcVersion}"
+}
+
+idea {
+    module {
+        sourceDirs += file("\${projectDir}/src/generated/main/java")
+        sourceDirs += file("\${projectDir}/src/generated/main/grpc")
+        sourceDirs += file("\${projectDir}/src/generated/main/grpckt")
+    }
+}
+
+protobuf {
+    protoc {
+        artifact = "com.google.protobuf:protoc:\${protocVersion}"
+    }
+
+    plugins {
+        grpc {
+            artifact = "io.grpc:protoc-gen-grpc-java:\${grpcVersion}"
+        }
+        grpckt {
+            artifact = "io.grpc:protoc-gen-grpc-kotlin:\${grpcKotlinVersion}:jdk7@jar"
+        }
+    }
+    generateProtoTasks {
+        all().each { task ->
+            task.plugins {
+                // Generate Java gRPC classes
+                grpc { }
+                // Generate Kotlin gRPC using the custom plugin from library
+                grpckt { }
+            }
+        }
+    }
+}

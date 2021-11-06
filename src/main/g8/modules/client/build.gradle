@@ -1,0 +1,13 @@
+apply plugin: 'com.bmuschko.docker-java-application'
+
+dependencies {
+    implementation project(":modules:common")
+}
+
+docker {
+    javaApplication {
+        baseImage = 'java:openjdk-8-jre'
+        ports = [8082] // metrics
+        jvmArgs = ['-Xms256m', '-Xmx2048m']
+    }
+}

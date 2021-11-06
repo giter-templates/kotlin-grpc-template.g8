@@ -1,0 +1,46 @@
+plugins {
+    id 'org.jetbrains.kotlin.jvm' version '1.5.30' apply false
+    // https://github.com/google/protobuf-gradle-plugin
+    id "com.google.protobuf" version "0.8.17" apply false
+    // docker
+    id 'com.bmuschko.docker-java-application' version '6.7.0' apply false
+}
+
+ext {
+    coroutinesVersion = '1.5.2'
+    grpcVersion = "1.36.0"
+    grpcKotlinVersion = "1.1.0"
+    protocVersion = "3.17.3"
+    protobufVersion = "3.17.3"
+    prometheusVersion = "0.12.0"
+    jaegerVersion = "1.6.0"
+}
+
+subprojects {
+    apply plugin: 'idea'
+    apply plugin: 'org.jetbrains.kotlin.jvm'
+    apply plugin: 'java'
+
+    group 'org.example'
+    version '1.0'
+
+    sourceCompatibility = '1.8'
+    targetCompatibility = '1.8'
+
+    repositories {
+        mavenCentral()
+    }
+
+    dependencies {
+        // kotlin
+        implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core\${coroutinesVersion}"
+        implementation 'org.jetbrains.kotlin:kotlin-stdlib'
+        // test
+        testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.0'
+        testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.0'
+    }
+
+    test {
+        useJUnitPlatform()
+    }
+}
