@@ -33,7 +33,7 @@ subprojects {
 
     dependencies {
         // kotlin
-        implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core\${coroutinesVersion}"
+        implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:\${coroutinesVersion}"
         implementation 'org.jetbrains.kotlin:kotlin-stdlib'
         // test
         testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.0'
